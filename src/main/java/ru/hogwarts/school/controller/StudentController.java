@@ -1,20 +1,16 @@
 package ru.hogwarts.school.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/student")
+@RequiredArgsConstructor
 public class StudentController {
     private final StudentService studentService;
-
-    public StudentController(StudentService studentService) {
-        this.studentService = studentService;
-    }
 
     @PostMapping()
     public ResponseEntity<Student> addStudent(@RequestBody Student student){
@@ -41,15 +37,8 @@ public class StudentController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Student> deleteStudent(@PathVariable Long id){
-        Student result = this.studentService.deleteStudent(id);
+        this.studentService.deleteStudent(id);
 
-        if(result == null) return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(result);
-    }
-
-    @GetMapping("by-age/{age}")
-    public ResponseEntity<List<Student>> findStudent(@PathVariable Integer age){
-        return ResponseEntity.ok(this.studentService.findStudentByAge(age));
+        return ResponseEntity.ok().build();
     }
 }
