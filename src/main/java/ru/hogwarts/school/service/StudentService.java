@@ -1,10 +1,12 @@
 package ru.hogwarts.school.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.StudentRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -25,5 +27,11 @@ public class StudentService {
 
     public Student findStudent(Long id){
         return this.studentRepository.findById(id).orElse(null);
+    }
+
+    public List<Student> findStudentByAge(int age){
+        return this.studentRepository.findAll().stream()
+                .filter(student -> student.getAge() == age)
+                .collect(Collectors.toList());
     }
 }

@@ -43,4 +43,9 @@ public class FacultyController {
 
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("by-color/{color}")
+    public ResponseEntity<List<Faculty>> findStudent(@PathVariable String color){
+        return ResponseEntity.ok(this.facultyService.findFacultyByColor(color));
+    }
 }
