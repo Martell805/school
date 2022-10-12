@@ -1,5 +1,6 @@
 package ru.hogwarts.school.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.hogwarts.school.model.Faculty;
@@ -9,12 +10,9 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/faculty")
+@RequiredArgsConstructor
 public class FacultyController {
     private final FacultyService facultyService;
-
-    public FacultyController(FacultyService facultyService) {
-        this.facultyService = facultyService;
-    }
 
     @PostMapping()
     public ResponseEntity<Faculty> addFaculty(@RequestBody Faculty faculty){
@@ -41,15 +39,13 @@ public class FacultyController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long id){
-        Faculty result = this.facultyService.deleteFaculty(id);
+        this.facultyService.deleteFaculty(id);
 
-        if(result == null) return ResponseEntity.notFound().build();
-
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok().build();
     }
 
-    @GetMapping("by-color/{color}")
-    public ResponseEntity<List<Faculty>> findStudent(@PathVariable String color){
+    @GetMapping("/by-color")
+    public ResponseEntity<List<Faculty>> findStudent(@RequestParam String color){
         return ResponseEntity.ok(this.facultyService.findFacultyByColor(color));
     }
 }
