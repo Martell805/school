@@ -30,8 +30,6 @@ public class StudentService {
     }
 
     public List<Student> findStudentByAge(int age){
-        return this.studentRepository.findAll().stream()
-                .filter(student -> student.getAge() == age)
-                .collect(Collectors.toList());
+        return this.studentRepository.findByAge(age);
     }
 }
