@@ -44,8 +44,8 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("by-age/{age}")
-    public ResponseEntity<List<Student>> findStudent(@PathVariable Integer age){
+    @GetMapping("/by-age")
+    public ResponseEntity<List<Student>> findStudent(@RequestParam Integer age){
         return ResponseEntity.ok(this.studentService.findStudentByAge(age));
     }
 }
