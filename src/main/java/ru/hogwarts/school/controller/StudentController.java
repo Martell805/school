@@ -45,7 +45,13 @@ public class StudentController {
     }
 
     @GetMapping("/by-age")
-    public ResponseEntity<List<Student>> findStudent(@RequestParam Integer age){
-        return ResponseEntity.ok(this.studentService.findStudentByAge(age));
+    public ResponseEntity<List<Student>> findStudent(@RequestParam(required = false) Integer age,
+                                                     @RequestParam(required = false) Integer minAge,
+                                                     @RequestParam(required = false) Integer maxAge){
+        if(age != null){
+            return ResponseEntity.ok(this.studentService.findStudentByAge(age));
+        } else {
+            return ResponseEntity.ok(this.studentService.findStudentByAge(minAge, maxAge));
+        }
     }
 }
