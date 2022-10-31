@@ -2,6 +2,7 @@ package ru.hogwarts.school.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import ru.hogwarts.school.model.Avatar;
@@ -15,6 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 
 @Service
 @Transactional
@@ -86,5 +88,10 @@ public class AvatarService {
 
     private String getExtension(String originalFilename) {
         return originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+    }
+
+    public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize){
+        PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
+        return this.avatarRepository.findAll(pageRequest).getContent();
     }
 }
