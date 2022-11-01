@@ -40,7 +40,7 @@ public class StudentService {
         return this.studentRepository.studentsAmount();
     }
 
-    public int studentsAverageAge(){
+    public double studentsAverageAge(){
         return this.studentRepository.studentsAverageAge();
     }
 
