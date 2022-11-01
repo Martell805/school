@@ -26,7 +26,7 @@ import ru.hogwarts.school.service.StudentService;
 
 @WebMvcTest
 @RequiredArgsConstructor
-class StudentControllerTests {
+class StudentControllerTest {
     private final MockMvc mockMvc;
 
     @MockBean
