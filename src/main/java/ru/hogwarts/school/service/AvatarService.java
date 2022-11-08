@@ -1,6 +1,8 @@
 package ru.hogwarts.school.service;
 
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,10 +27,14 @@ public class AvatarService {
     @Value("${avatars.path}")
     private String avatarsPath;
 
+    private final Logger logger = LoggerFactory.getLogger(AvatarService.class);
+
     private final StudentService studentService;
     private final AvatarRepository avatarRepository;
 
     public void uploadAvatar(Long id, MultipartFile avatar) throws IOException {
+        this.logger.info("Uploaded avatar {}", id);
+
         Student student = this.studentService.findStudent(id);
 
         Path filePath = Path.of(avatarsPath, id + "." + getExtension(avatar.getOriginalFilename()));
@@ -60,6 +66,8 @@ public class AvatarService {
     }
 
     private byte[] generateImagePreview(Path filePath) throws IOException {
+        this.logger.info("Generated preview for {}", filePath);
+
         try (
                 InputStream is = Files.newInputStream(filePath);
                 BufferedInputStream bis = new BufferedInputStream(is, 1024);
@@ -79,10 +87,13 @@ public class AvatarService {
     }
 
     public Avatar findAvatar(Long id) {
+        this.logger.info("Found avatar {}", id);
         return this.avatarRepository.findById(id).orElse(null);
     }
 
     public Avatar findAvatarByStudentId(Long id) {
+        this.logger.info("Found avatar by student id {}", id);
+
         return this.avatarRepository.findByStudentId(id).orElse(null);
     }
 
@@ -91,6 +102,8 @@ public class AvatarService {
     }
 
     public List<Avatar> getAllAvatars(Integer pageNumber, Integer pageSize){
+        this.logger.info("Found all avatars on page number {} (size {})", pageNumber, pageSize);
+
         PageRequest pageRequest = PageRequest.of(pageNumber - 1, pageSize);
         return this.avatarRepository.findAll(pageRequest).getContent();
     }
