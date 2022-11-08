@@ -69,4 +69,14 @@ public class StudentController {
     public ResponseEntity<List<Student>> findLastFiveStudents(){
         return ResponseEntity.ok(this.studentService.findLastFiveStudents());
     }
+
+    @GetMapping("/a")
+    public ResponseEntity<List<String>> findAllA(){
+        return ResponseEntity.ok(this.studentService.findAllA());
+    }
+
+    @GetMapping("/average-age2")
+    public ResponseEntity<Double> studentsAverageAge2(){
+        return ResponseEntity.ok(this.studentService.studentsAverageAge2());
+    }
 }

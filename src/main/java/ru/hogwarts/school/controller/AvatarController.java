@@ -68,4 +68,6 @@ public class AvatarController {
 
         return this.avatarService.getAllAvatars(pageNumber, pageSize);
     }
+
+
 }

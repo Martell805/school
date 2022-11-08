@@ -50,4 +50,14 @@ public class FacultyController {
             return ResponseEntity.ok(this.facultyService.findFacultyByColor(color));
         return ResponseEntity.ok(this.facultyService.findFacultyByColor(color, ignoreCase));
     }
+
+    @GetMapping("/longest-name")
+    public ResponseEntity<String> findLongestFacultyName(){
+        return ResponseEntity.ok(this.facultyService.getLongestName());
+    }
+
+    @GetMapping("/number")
+    public ResponseEntity<Integer> getNumber(){
+        return ResponseEntity.ok(this.facultyService.getNumber());
+    }
 }
