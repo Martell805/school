@@ -69,4 +69,8 @@ public class StudentService {
 
         return this.studentRepository.findLastFiveStudents();
     }
+
+    public List<Student> findStudentByName(String name) {
+        return this.studentRepository.findByName(name);
+    }
 }
