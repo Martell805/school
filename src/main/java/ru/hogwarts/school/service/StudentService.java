@@ -91,4 +91,58 @@ public class StudentService {
     public List<Student> findStudentByName(String name) {
         return this.studentRepository.findByName(name);
     }
+
+    public void printStudentsParallel(){
+        List<Student> students = this.studentRepository.findAll();
+
+        Thread thread12 = new Thread(() -> {
+            System.out.println(students.get(0).getName());
+            System.out.println(students.get(1).getName());
+        });
+
+        Thread thread34 = new Thread(() -> {
+            System.out.println(students.get(2).getName());
+            System.out.println(students.get(3).getName());
+        });
+
+        Thread thread56 = new Thread(() -> {
+            System.out.println(students.get(4).getName());
+            System.out.println(students.get(5).getName());
+        });
+
+        thread12.start();
+        thread34.start();
+        thread56.start();
+    }
+
+    private synchronized void printStudentName(Student student) {
+        System.out.println(student.getName());
+    }
+
+    public void printStudentsParallelS(){
+        List<Student> students = this.studentRepository.findAll();
+
+        System.out.println("Collection:");
+        students.forEach(this::printStudentName);
+
+        System.out.println("Threads:");
+        Thread thread12 = new Thread(() -> {
+            this.printStudentName(students.get(0));
+            this.printStudentName(students.get(1));
+        });
+
+        Thread thread34 = new Thread(() -> {
+            this.printStudentName(students.get(2));
+            this.printStudentName(students.get(3));
+        });
+
+        Thread thread56 = new Thread(() -> {
+            this.printStudentName(students.get(4));
+            this.printStudentName(students.get(5));
+        });
+
+        thread12.start();
+        thread34.start();
+        thread56.start();
+    }
 }
