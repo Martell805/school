@@ -47,7 +47,7 @@ public class FacultyController {
     @GetMapping("/by-color")
     public ResponseEntity<List<Faculty>> findFaculty(@RequestParam String color, @RequestParam(required = false) Boolean ignoreCase){
         if(ignoreCase == null)
-            return ResponseEntity.ok(this.facultyService.findFacultyByColor(color));
+            return ResponseEntity.ok(this.facultyService.findFacultyByColor(color, false));
         return ResponseEntity.ok(this.facultyService.findFacultyByColor(color, ignoreCase));
     }
 

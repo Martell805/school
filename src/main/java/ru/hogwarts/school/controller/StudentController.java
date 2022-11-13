@@ -44,6 +44,11 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/by-name")
+    public ResponseEntity<List<Student>> findStudent(@RequestParam String name){
+        return ResponseEntity.ok(this.studentService.findStudentByName(name));
+    }
+
     @GetMapping("/by-age")
     public ResponseEntity<List<Student>> findStudent(@RequestParam(required = false) Integer age,
                                                      @RequestParam(required = false) Integer minAge,
@@ -54,6 +59,7 @@ public class StudentController {
             return ResponseEntity.ok(this.studentService.findStudentByAge(minAge, maxAge));
         }
     }
+
 
     @GetMapping("/amount")
     public ResponseEntity<Integer> studentAmount(){
