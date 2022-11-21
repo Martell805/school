@@ -85,4 +85,18 @@ public class StudentController {
     public ResponseEntity<Double> studentsAverageAge2(){
         return ResponseEntity.ok(this.studentService.studentsAverageAge2());
     }
+
+    @GetMapping("/psp")
+    public ResponseEntity<Student> printStudentsParallel(){
+        this.studentService.printStudentsParallel();
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/psps")
+    public ResponseEntity<Student> printStudentsParallelS(){
+        this.studentService.printStudentsParallelS();
+
+        return ResponseEntity.ok().build();
+    }
 }
