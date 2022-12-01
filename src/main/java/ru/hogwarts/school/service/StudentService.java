@@ -119,6 +119,11 @@ public class StudentService {
         System.out.println(student.getName());
     }
 
+    private synchronized void printStudentName(Student student1, Student student2) {
+        System.out.println(student1.getName());
+        System.out.println(student2.getName());
+    }
+
     public void printStudentsParallelS(){
         List<Student> students = this.studentRepository.findAll();
 
@@ -127,18 +132,15 @@ public class StudentService {
 
         System.out.println("Threads:");
         Thread thread12 = new Thread(() -> {
-            this.printStudentName(students.get(0));
-            this.printStudentName(students.get(1));
+            this.printStudentName(students.get(0), students.get(1));
         });
 
         Thread thread34 = new Thread(() -> {
-            this.printStudentName(students.get(2));
-            this.printStudentName(students.get(3));
+            this.printStudentName(students.get(2), students.get(3));
         });
 
         Thread thread56 = new Thread(() -> {
-            this.printStudentName(students.get(4));
-            this.printStudentName(students.get(5));
+            this.printStudentName(students.get(4), students.get(5));
         });
 
         thread12.start();
